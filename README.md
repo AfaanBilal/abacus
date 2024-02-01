@@ -9,7 +9,7 @@
 
 ## Screenshots
 
-![Abacus](screenshots/abacus.png)
+![Abacus](public/screenshots/abacus.png)
 
 ---
 
