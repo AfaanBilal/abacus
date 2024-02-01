@@ -87,7 +87,9 @@ const reset = () => emptySpots.value = resetState();
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-end p-2 text-sm border-t hover:text-blue-500">
+            <div class="flex items-center justify-end gap-2 p-2 text-sm border-t hover:text-blue-500">
+                <a href="https://github.com/AfaanBilal/abacus" target="_blank" rel="noopener">GitHub</a>
+                &middot;
                 <a href="https://afaan.dev" target="_blank" rel="noopener">Copyright &copy; Afaan Bilal</a>
             </div>
         </div>
