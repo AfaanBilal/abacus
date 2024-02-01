@@ -1,4 +1,16 @@
 <script setup lang="ts">
+/**
+ * Abacus
+ *
+ * @link        https://abacus.afaan.dev
+ *
+ * @author      Afaan Bilal
+ * @link        https://afaan.dev
+ * @link        https://github.com/AfaanBilal/abacus
+ * @license     MIT
+ * @copyright   2024 Afaan Bilal
+ */
+
 import { computed, ref } from 'vue';
 
 type EmptySpot = { top: boolean, bottom: number };
