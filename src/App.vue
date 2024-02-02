@@ -11,38 +11,52 @@
  * @copyright   2024 Afaan Bilal
  */
 
-import { computed, ref } from 'vue';
+import { ref, watch } from 'vue';
 
 type EmptySpot = { top: boolean, bottom: number };
 
 const COUNT = Math.ceil(Math.max(5, Math.min(13, window.innerWidth / 80)));
 
-const resetState = () => {
+const resetState = (to: number = 0) => {
     const data: Array<EmptySpot> = [];
 
     for (let i = 0; i < COUNT; i++) {
-        data.push({ top: false, bottom: 0 });
+        const digit = Number(to.toString().padStart(COUNT, '0').split('')[i]);
+        data.push({ top: digit >= 5, bottom: digit >= 5 ? digit - 5 : digit });
     }
 
     return data;
 };
 
-const emptySpots = ref<Array<EmptySpot>>(resetState());
-
-const value = computed(() => {
+const calculateValue = () => {
     let v = 0;
 
     for (let i = 0; i < COUNT; i++) {
         v += Math.pow(10, COUNT - i - 1) * (emptySpots.value[i].bottom + (emptySpots.value[i].top ? 5 : 0));
     }
 
-    return v;
-});
+    value.value = v;
+};
 
-const moveTopSpot = (i: number) => emptySpots.value[i].top = !emptySpots.value[i].top;
-const moveSpot = (i: number, v: number) => emptySpots.value[i].bottom = v;
+const value = ref(0);
+const emptySpots = ref<Array<EmptySpot>>(resetState());
 
-const reset = () => emptySpots.value = resetState();
+watch(value, () => { emptySpots.value = resetState(value.value); });
+
+const moveTopSpot = (i: number) => {
+    emptySpots.value[i].top = !emptySpots.value[i].top;
+    calculateValue();
+};
+
+const moveSpot = (i: number, v: number) => {
+    emptySpots.value[i].bottom = v;
+    calculateValue();
+};
+
+const reset = () => {
+    emptySpots.value = resetState();
+    calculateValue();
+};
 </script>
 
 <template>
@@ -50,8 +64,17 @@ const reset = () => emptySpots.value = resetState();
         <div class="flex flex-col max-w-full gap-2 p-4 m-2 overflow-x-auto bg-white rounded-lg">
             <div class="flex items-center gap-4 p-2 mb-4 border-b">
                 <div class="flex-1 font-mono text-3xl font-extrabold text-gray-800">ABACUS</div>
-                <div class="flex-1 p-1 px-4 font-mono text-2xl text-right text-gray-200 bg-gray-800 rounded-lg">
-                    {{ value }}
+                <div class="flex gap-2">
+                    <div class="flex flex-col gap-1">
+                        <div @click="value += 1"
+                            class="flex items-center justify-center w-6 h-6 text-gray-800 bg-gray-300 rounded-t cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
+                            &#8613;</div>
+                        <div @click="() => { if (value > 0) { value -= 1; }; }"
+                            class="flex items-center justify-center w-6 h-6 text-gray-800 bg-gray-300 rounded-b cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
+                            &#8615;</div>
+                    </div>
+                    <input type="number" v-model="value" min="0"
+                        class="flex-1 p-1 px-4 font-mono text-2xl text-right text-gray-200 bg-gray-800 rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
                 </div>
                 <div class="flex items-center justify-center h-full p-1 px-2 text-xl text-gray-800 bg-gray-300 rounded-lg cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400"
                     @click="reset">
