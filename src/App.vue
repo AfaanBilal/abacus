@@ -110,10 +110,12 @@ const reset = () => {
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-end gap-2 p-2 text-sm border-t hover:text-blue-500">
-                <a href="https://github.com/AfaanBilal/abacus" target="_blank" rel="noopener">GitHub</a>
+            <div class="flex items-center justify-end gap-2 p-2 text-sm border-t">
+                <a href="https://github.com/AfaanBilal/abacus" target="_blank" rel="noopener"
+                    class="hover:text-blue-500">GitHub</a>
                 &middot;
-                <a href="https://afaan.dev" target="_blank" rel="noopener">Copyright &copy; Afaan Bilal</a>
+                <a href="https://afaan.dev" target="_blank" rel="noopener" class="hover:text-blue-500">Copyright &copy;
+                    Afaan Bilal</a>
             </div>
         </div>
     </div>
