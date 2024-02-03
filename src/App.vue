@@ -103,39 +103,48 @@ setInterval(() => {
             </div>
             <div class="flex gap-4 pb-4 mb-2 border-b-2 border-b-gray-300">
                 <div v-for="i in COUNT" class="flex flex-col gap-2">
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveTopSpot(i - 1)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveTopSpot(i - 1)"
                         :class="{ 'bg-red-900': !emptySpots[i - 1].top, 'bg-gray-200': emptySpots[i - 1].top }">
                     </div>
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveTopSpot(i - 1)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveTopSpot(i - 1)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].top, 'bg-gray-200': !emptySpots[i - 1].top }">
                     </div>
                 </div>
             </div>
             <div class="flex gap-4">
                 <div v-for="i in COUNT" class="flex flex-col gap-2">
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 0)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveSpot(i - 1, 0)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 0, 'bg-gray-200': emptySpots[i - 1].bottom === 0 }">
                     </div>
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 1)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveSpot(i - 1, 1)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 1, 'bg-gray-200': emptySpots[i - 1].bottom === 1 }">
                     </div>
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 2)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveSpot(i - 1, 2)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 2, 'bg-gray-200': emptySpots[i - 1].bottom === 2 }">
                     </div>
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 3)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveSpot(i - 1, 3)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 3, 'bg-gray-200': emptySpots[i - 1].bottom === 3 }">
                     </div>
-                    <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 4)"
+                    <div class="w-12 h-12 transition-colors cursor-pointer rounded-xl hover:border-2"
+                        @click="moveSpot(i - 1, 4)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 4, 'bg-gray-200': emptySpots[i - 1].bottom === 4 }">
                     </div>
                 </div>
             </div>
             <div class="flex items-center justify-end gap-2 p-2 text-sm border-t">
-                <a href="https://github.com/AfaanBilal/abacus" target="_blank" rel="noopener"
-                    class="hover:text-blue-500">GitHub</a>
+                <a href="https://github.com/AfaanBilal/abacus" target="_blank" rel="noopener" class="hover:text-blue-500">
+                    GitHub
+                </a>
                 &middot;
-                <a href="https://afaan.dev" target="_blank" rel="noopener" class="hover:text-blue-500">Copyright &copy;
-                    Afaan Bilal</a>
+                <a href="https://afaan.dev" target="_blank" rel="noopener" class="hover:text-blue-500">
+                    Copyright &copy; Afaan Bilal
+                </a>
             </div>
         </div>
     </div>
