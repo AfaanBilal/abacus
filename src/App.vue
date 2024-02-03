@@ -92,14 +92,16 @@ setInterval(() => {
             <div class="flex items-center gap-2 pb-4 border-b">
                 <div @click="() => { if (value < MAX) { value += 1; }; }"
                     class="flex items-center self-stretch justify-center w-10 text-gray-800 bg-gray-300 rounded cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
-                    &#8613;</div>
+                    &#8613;
+                </div>
                 <div class="flex-1">
                     <input type="number" v-model="value" min="0" :max="MAX"
                         class="p-1 px-4 font-mono w-full text-3xl text-right text-gray-200 bg-gray-800 rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
                 </div>
                 <div @click="() => { if (value > 0) { value -= 1; }; }"
                     class="flex items-center self-stretch justify-center w-10 text-gray-800 bg-gray-300 rounded cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
-                    &#8615;</div>
+                    &#8615;
+                </div>
             </div>
             <div class="flex gap-4 pb-4 mb-2 border-b-2 border-b-gray-300">
                 <div v-for="i in COUNT" class="flex flex-col gap-2">
