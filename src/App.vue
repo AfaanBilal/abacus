@@ -15,7 +15,8 @@ import { ref, watch } from 'vue';
 
 type EmptySpot = { top: boolean, bottom: number };
 
-const COUNT = Math.ceil(Math.max(5, Math.min(13, window.innerWidth / 80)));
+const COUNT = Math.ceil(Math.max(4, Math.min(13, window.innerWidth / 80)));
+const MAX = Number('9'.repeat(COUNT));
 
 const resetState = (to: number = 0) => {
     const data: Array<EmptySpot> = [];
@@ -41,7 +42,13 @@ const calculateValue = () => {
 const value = ref(0);
 const emptySpots = ref<Array<EmptySpot>>(resetState());
 
-watch(value, () => { emptySpots.value = resetState(value.value); });
+watch(value, () => {
+    if (value.value > MAX) {
+        value.value = MAX;
+    }
+
+    emptySpots.value = resetState(value.value);
+});
 
 const moveTopSpot = (i: number) => {
     emptySpots.value[i].top = !emptySpots.value[i].top;
@@ -61,27 +68,27 @@ const reset = () => {
 
 <template>
     <div class="flex justify-center">
-        <div class="flex flex-col max-w-full gap-2 p-4 m-2 overflow-x-auto bg-white rounded-lg">
-            <div class="flex items-center gap-4 p-2 mb-4 border-b">
+        <div class="flex flex-col max-w-full gap-4 p-4 m-2 overflow-x-auto bg-white rounded-lg">
+            <div class="flex flex-wrap items-center gap-4 mb-4">
                 <div class="flex-1 font-mono text-3xl font-extrabold text-gray-800">ABACUS</div>
-                <div class="flex gap-2">
-                    <div class="flex flex-col gap-1">
-                        <div @click="value += 1"
-                            class="flex items-center justify-center w-6 h-6 text-gray-800 bg-gray-300 rounded-t cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
-                            &#8613;</div>
-                        <div @click="() => { if (value > 0) { value -= 1; }; }"
-                            class="flex items-center justify-center w-6 h-6 text-gray-800 bg-gray-300 rounded-b cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
-                            &#8615;</div>
-                    </div>
-                    <input type="number" v-model="value" min="0"
-                        class="flex-1 p-1 px-4 font-mono text-2xl text-right text-gray-200 bg-gray-800 rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-                </div>
-                <div class="flex items-center justify-center h-full p-1 px-2 text-xl text-gray-800 bg-gray-300 rounded-lg cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400"
+                <div class="flex items-center justify-center p-1 px-2 text-xl text-gray-800 bg-gray-300 rounded-lg cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400"
                     @click="reset">
                     Clear
                 </div>
             </div>
-            <div class="flex gap-4 p-2 pb-4 mb-2 border-b-2 border-b-gray-300">
+            <div class="flex items-center gap-2 pb-4 border-b">
+                <div @click="() => { if (value < MAX) { value += 1; }; }"
+                    class="flex items-center self-stretch justify-center w-10 text-gray-800 bg-gray-300 rounded cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
+                    &#8613;</div>
+                <div class="flex-1">
+                    <input type="number" v-model="value" min="0" :max="MAX"
+                        class="p-1 px-4 font-mono w-full text-3xl text-right text-gray-200 bg-gray-800 rounded-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                </div>
+                <div @click="() => { if (value > 0) { value -= 1; }; }"
+                    class="flex items-center self-stretch justify-center w-10 text-gray-800 bg-gray-300 rounded cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400">
+                    &#8615;</div>
+            </div>
+            <div class="flex gap-4 pb-4 mb-2 border-b-2 border-b-gray-300">
                 <div v-for="i in COUNT" class="flex flex-col gap-2">
                     <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveTopSpot(i - 1)"
                         :class="{ 'bg-red-900': !emptySpots[i - 1].top, 'bg-gray-200': emptySpots[i - 1].top }">
@@ -91,7 +98,7 @@ const reset = () => {
                     </div>
                 </div>
             </div>
-            <div class="flex gap-4 p-2">
+            <div class="flex gap-4">
                 <div v-for="i in COUNT" class="flex flex-col gap-2">
                     <div class="w-12 h-12 cursor-pointer rounded-xl hover:border-2" @click="moveSpot(i - 1, 0)"
                         :class="{ 'bg-red-900': emptySpots[i - 1].bottom !== 0, 'bg-gray-200': emptySpots[i - 1].bottom === 0 }">
