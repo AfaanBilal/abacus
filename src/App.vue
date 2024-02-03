@@ -41,6 +41,7 @@ const calculateValue = () => {
 
 const value = ref(0);
 const emptySpots = ref<Array<EmptySpot>>(resetState());
+const autoplay = ref(false);
 
 watch(value, () => {
     if (value.value > MAX) {
@@ -64,13 +65,25 @@ const reset = () => {
     emptySpots.value = resetState();
     calculateValue();
 };
+
+setInterval(() => {
+    if (autoplay.value) {
+        if (value.value < MAX) {
+            value.value += 1;
+        }
+    }
+}, 700);
 </script>
 
 <template>
     <div class="flex justify-center">
         <div class="flex flex-col max-w-full gap-4 p-4 m-2 overflow-x-auto bg-white rounded-lg">
-            <div class="flex flex-wrap items-center gap-4 mb-4">
+            <div class="flex items-center gap-4 mb-4">
                 <div class="flex-1 font-mono text-3xl font-extrabold text-gray-800">ABACUS</div>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" v-model="autoplay" class="w-4 h-4 cursor-pointer accent-red-900" id="autoplay" />
+                    <label for="autoplay" class="cursor-pointer select-none">Autoplay</label>
+                </div>
                 <div class="flex items-center justify-center p-1 px-2 text-xl text-gray-800 bg-gray-300 rounded-lg cursor-pointer select-none hover:bg-gray-200 active:bg-gray-400"
                     @click="reset">
                     Clear
